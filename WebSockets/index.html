@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSockets | Native</title>
+    <style>
+        body{
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+
+    <script>
+        let ws = new WebSocket(`ws://localhost:5000`);
+        ws.onopen = e  => {
+            ws.send('This is your client talking');
+        }
+        ws.onmessage = e => console.log(e.data);
+    </script>
+    
+</body>
+</html>
