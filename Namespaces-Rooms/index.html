@@ -15,15 +15,17 @@
         let socket = new io('http://localhost:5000')
         let socket2 = new io('http://localhost:5000/admin')
 
-        socket.on('connect', () => {
-            socket.on('welcome', data => {
+        socket.on('join', data => {
+              console.log(data)
+            })
+
+        socket.on('welcome', data => {
                 console.log(data)
                 socket.emit('welcomeReply', { data: 'okay' })
             })
-        })
 
         socket2.on('adminWelcome', data => {
-            console.log(data)
+            // console.log(data)
             socket2.emit('replyToAdmin', { data: 'The Lannisters sent their regards' })
         })
 

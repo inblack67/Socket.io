@@ -13,10 +13,16 @@ const server = app.listen(PORT, () => {
 const io = socketio(server);
 
 io.on('connection', socket => {
+
     socket.emit('welcome', { data: 'Hey! Die!' });
     socket.on('welcomeReply', (data) => {
         console.log(data);
     })
+
+    socket.join('level1');
+
+    // io.to sends everyone, even the current socket
+    io.to('level1').emit('join', { data: `${socket.id} says, it has joined room level1` });
 })
 
 io.of('/admin').on('connection', socket => {
@@ -24,6 +30,6 @@ io.of('/admin').on('connection', socket => {
     io.of('/admin').emit('adminWelcome', { data: 'Admin sends his love' })
 
     socket.on('replyToAdmin', data => {
-        console.log(data);
+        // console.log(data);
     })
 })
