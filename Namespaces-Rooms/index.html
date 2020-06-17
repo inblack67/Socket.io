@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Namespaces | Rooms</title>
+
+    <link rel="stylesheet" href="./index.css">
+  </head>
+  <body>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+
+    <script>
+        let socket = new io('http://localhost:5000')
+        let socket2 = new io('http://localhost:5000/admin')
+
+        socket.on('connect', () => {
+            socket.on('welcome', data => {
+                console.log(data)
+                socket.emit('welcomeReply', { data: 'okay' })
+            })
+        })
+
+        socket2.on('adminWelcome', data => {
+            console.log(data)
+            socket2.emit('replyToAdmin', { data: 'The Lannisters sent their regards' })
+        })
+
+    </script>
+  </body>
+</html>
